@@ -1,0 +1,18 @@
+/* Dark mode — for the clinic panel. Apply data-theme="dark" on <html> or any container. */
+[data-theme="dark"]{
+--bg-app:#11161D;--bg-sunken:#0C1015;--surface-card:#181F28;--surface-raised:#1F2732;--surface-subtle:#151B23;--surface-hover:#232C38;--surface-selected:#0F302D;--surface-inverse:#F4F1EC;
+--text-strong:#F3F1ED;--text-body:#DCDAD5;--text-muted:#A3A8B0;--text-subtle:#7C838D;--text-inverse:#1C2430;--text-link:#4FC2B4;--text-link-hover:#7FD6CB;
+--border-subtle:#252E3A;--border-default:#2F3946;--border-strong:#3E4A58;--border-focus:#36A598;
+--action-primary:#1A9C8E;--action-primary-hover:#22B0A1;--action-primary-active:#36A598;--action-primary-subtle:#0F302D;--action-primary-subtle-hover:#14403C;
+--accent-brand:#36A598;
+--ai-accent:#8A7CFA;--ai-accent-text:#B3A9FC;--ai-surface:#211D45;--ai-border:#332C6B;
+--success:#4CBB7F;--success-text:#7DD3A4;--success-surface:#13301F;
+--warning:#E5AE42;--warning-text:#F0C674;--warning-surface:#33270D;
+--danger:#E5665F;--danger-text:#F29790;--danger-surface:#3A1715;--danger-border:#5A2320;
+--info:#36A598;--info-text:#7FD6CB;--info-surface:#0F302D;
+--status-confirmed:#7DD3A4;--status-confirmed-bg:#13301F;--status-pending:#F0C674;--status-pending-bg:#33270D;--status-cancelled:#A3A8B0;--status-cancelled-bg:#232C38;--status-noshow:#F29790;--status-noshow-bg:#3A1715;--status-rescheduled:#B3A9FC;--status-rescheduled-bg:#211D45;
+--bubble-patient:#1F2732;--bubble-agent:#0F302D;--bubble-human:#222B3D;--chat-wallpaper:#0F141A;
+--shadow-xs:0 1px 2px rgba(0,0,0,.4);--shadow-sm:0 1px 2px rgba(0,0,0,.35),0 2px 6px rgba(0,0,0,.25);--shadow-md:0 2px 4px rgba(0,0,0,.3),0 8px 20px rgba(0,0,0,.3);--shadow-lg:0 4px 8px rgba(0,0,0,.3),0 20px 44px rgba(0,0,0,.4);
+--focus-ring:0 0 0 2px #11161D,0 0 0 4px #36A598;
+color-scheme:dark;
+}

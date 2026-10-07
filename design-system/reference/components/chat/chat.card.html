@@ -1,0 +1,20 @@
+<!-- @dsCard group="Components" viewport="700x440" name="Chat" subtitle="ChatBubble (patient · agent · human · system) + ConversationItem" -->
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_runtime/ds-bundle.js"></script>
+<style>body{margin:0;background:var(--chat-wallpaper)}.lbl{font:600 11px/14px var(--font-mono);color:var(--text-subtle);text-transform:uppercase;letter-spacing:.04em}</style></head><body><div id="root"></div>
+<script type="text/babel">
+const { ChatBubble, ConversationItem, TimeSlots } = window.ForgeonClinicDesignSystem_5b731b;
+function Demo(){
+return <div style={{display:'grid',gridTemplateColumns:'250px 1fr',height:440}}>
+<div style={{background:'var(--surface-card)',padding:8,borderRight:'1px solid var(--border-subtle)'}}><ConversationItem name="Marina Souza" preview="Consigo remarcar pra sexta?" time="09:12" unread={2} selected/><ConversationItem name="Javier Ortega" preview="Me duele mucho la muela" time="09:05" urgent/><ConversationItem name="Pedro Alves" preview="Obrigado, até quinta!" time="08:40" handledBy="human"/></div>
+<div style={{padding:16,display:'flex',flexDirection:'column',gap:10}}>
+<ChatBubble from="patient" text="Oi! Consigo remarcar minha consulta de quinta pra sexta?" time="09:12"/>
+<ChatBubble from="agent" text="Claro, Marina! Na sexta a Dra. Ana tem estes horários:" time="09:12" status="read"><div style={{display:'flex',gap:6}}>{['09:00','10:30','14:00'].map(t=><span key={t} style={{padding:'6px 10px',borderRadius:10,background:'var(--surface-card)',border:'1px solid var(--teal-200)',fontWeight:600,fontSize:14,color:'var(--teal-700)',fontVariantNumeric:'tabular-nums'}}>{t}</span>)}</div></ChatBubble>
+<ChatBubble from="system" text="Conversa transferida para a recepção · 09:15"/>
+<ChatBubble from="human" author="Carla" text="Oi, Marina! Aqui é a Carla. Já deixei 10:30 reservado pra você." time="09:16" status="delivered"/></div></div>;
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+</script></body></html>

@@ -1,0 +1,43 @@
+/* Forgeon Clinic — color tokens. Base scales first, semantic aliases below. */
+:root{
+/* Clinic Teal — primary. 500 is the brand teal (#0E8C80); 600+ for text/buttons on light grounds (AA). */
+--teal-50:#E6F5F2;--teal-100:#C9EBE5;--teal-200:#9FD9CF;--teal-300:#6CC1B5;--teal-400:#36A598;--teal-500:#0E8C80;--teal-600:#0B7A70;--teal-700:#09665E;--teal-800:#08514B;--teal-900:#063D39;
+/* Forgeon brand — indigo → violet (logo gradient). Use sparingly: logo, AI/agent moments, badges. */
+--indigo-50:#EFEDFE;--indigo-100:#DEDAFD;--indigo-300:#A79CFA;--indigo-500:#4F3BF5;--indigo-600:#3F2BDE;--indigo-700:#3322B3;
+--violet-50:#F4EDFE;--violet-500:#8E3BF3;--violet-600:#7428D6;
+/* Warm neutrals (sand) for grounds + borders */
+--sand-0:#FFFFFF;--sand-25:#FCFBF9;--sand-50:#FAF8F5;--sand-100:#F4F1EC;--sand-200:#ECE7E0;--sand-300:#E2DCD3;--sand-400:#CFC8BD;--sand-500:#A8A196;
+/* Ink — text scale, cool navy */
+--ink-900:#1C2430;--ink-800:#2A3340;--ink-700:#3B4452;--ink-600:#4E5764;--ink-500:#5F6773;--ink-400:#8A909A;--ink-300:#B4B8BF;
+/* Semantic bases */
+--green-50:#E9F6EF;--green-500:#2F9E62;--green-700:#1F7647;
+--amber-50:#FCF4E2;--amber-200:#F1D9A4;--amber-500:#D99A1E;--amber-700:#8A5A06;
+--red-50:#FCECEB;--red-100:#F8D6D3;--red-500:#D2453D;--red-700:#A9322B;
+--whatsapp-50:#E3F9EA;--whatsapp-500:#25D366;--whatsapp-600:#1FBF5B;--whatsapp-700:#128C4B;--whatsapp-900:#0B2E1A;
+/* Cool grey used by the human-reception bubble and one avatar tone */
+--slate-50:#EEF1F6;
+
+/* ——— Semantic aliases ——— */
+--bg-app:var(--sand-50);--bg-sunken:var(--sand-100);--surface-card:var(--sand-0);--surface-raised:var(--sand-0);--surface-subtle:var(--sand-25);--surface-hover:var(--sand-100);--surface-selected:var(--teal-50);--surface-inverse:var(--ink-900);
+--text-strong:var(--ink-900);--text-body:var(--ink-800);--text-muted:var(--ink-500);--text-subtle:var(--ink-400);--text-inverse:#FFFFFF;--text-on-primary:#FFFFFF;--text-link:var(--teal-600);--text-link-hover:var(--teal-700);
+--border-subtle:var(--sand-200);--border-default:var(--sand-300);--border-strong:var(--sand-400);--border-focus:var(--teal-500);
+--action-primary:var(--teal-600);--action-primary-hover:var(--teal-700);--action-primary-active:var(--teal-800);--action-primary-subtle:var(--teal-50);--action-primary-subtle-hover:var(--teal-100);
+--accent-brand:var(--teal-500);
+--ai-accent:var(--indigo-500);--ai-accent-text:var(--indigo-600);--ai-surface:var(--indigo-50);--ai-border:var(--indigo-100);
+--brand-gradient:linear-gradient(135deg,#4F3BF5 0%,#8E3BF3 100%); /* @kind color */
+--success:var(--green-500);--success-text:var(--green-700);--success-surface:var(--green-50);
+--warning:var(--amber-500);--warning-text:var(--amber-700);--warning-surface:var(--amber-50);
+--danger:var(--red-500);--danger-text:var(--red-700);--danger-surface:var(--red-50);--danger-border:var(--red-100);
+--info:var(--teal-500);--info-text:var(--teal-700);--info-surface:var(--teal-50);
+--whatsapp:var(--whatsapp-500);--whatsapp-hover:var(--whatsapp-600);--whatsapp-text:var(--whatsapp-700);--whatsapp-surface:var(--whatsapp-50);--text-on-whatsapp:var(--whatsapp-900);
+/* Status (appointments) */
+--status-confirmed:var(--success-text);--status-confirmed-bg:var(--success-surface);
+--status-pending:var(--warning-text);--status-pending-bg:var(--warning-surface);
+--status-cancelled:var(--ink-500);--status-cancelled-bg:var(--sand-100);
+--status-noshow:var(--danger-text);--status-noshow-bg:var(--danger-surface);
+--status-rescheduled:var(--indigo-600);--status-rescheduled-bg:var(--indigo-50);
+/* Chat bubbles */
+--bubble-patient:var(--sand-0);--bubble-agent:var(--teal-50);--bubble-human:var(--slate-50);--chat-wallpaper:var(--sand-100);
+/* Translucent / tinted surfaces (added during the project port — values unchanged from the original components) */
+--text-on-dark-muted:rgba(255,255,255,.75);--calendar-today-tint:rgba(14,140,128,.03);--surface-nav-translucent:rgba(250,248,245,.88);
+}

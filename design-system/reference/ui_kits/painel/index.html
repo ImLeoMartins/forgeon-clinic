@@ -1,0 +1,456 @@
+<!-- @dsCard group="Painel (web app)" viewport="1440x900" name="Painel da clínica" subtitle="Clickable panel — início, agenda, conversas, pacientes, mensagens" -->
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Forgeon Clinic — Painel</title>
+<link rel="stylesheet" href="../../../styles.css">
+<style>html,body,#root{height:100%}body{overflow:hidden}</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_runtime/ds-bundle.js"></script>
+<script src="data.js"></script>
+</head><body><div id="root"></div>
+<!-- inlined from Shell.jsx (Babel cannot fetch external .jsx over file://) -->
+<script type="text/babel">
+(() => {
+const { Logo, Icon, IconButton, Avatar, Switch, Badge, Tooltip } = window.ForgeonClinicDesignSystem_5b731b;
+
+const NAV = [
+  { id: 'inicio', icon: 'layout-dashboard', pt: 'Início', es: 'Inicio' },
+  { id: 'agenda', icon: 'calendar-days', pt: 'Agenda', es: 'Agenda' },
+  { id: 'conversas', icon: 'messages-square', pt: 'Conversas', es: 'Conversaciones' },
+  { id: 'pacientes', icon: 'users', pt: 'Pacientes', es: 'Pacientes' },
+  { id: 'mensagens', icon: 'file-text', pt: 'Mensagens', es: 'Plantillas' },
+];
+
+function NavItem({ item, active, onClick, locale, badge }) {
+  const [hover, setHover] = React.useState(false);
+  return (
+    <button type="button" onClick={onClick} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}
+      style={{ display: 'flex', alignItems: 'center', gap: 12, height: 44, padding: '0 12px', border: 0, borderRadius: 12, cursor: 'pointer', width: '100%',
+        background: active ? 'var(--surface-selected)' : hover ? 'var(--surface-hover)' : 'transparent', color: active ? 'var(--teal-700)' : 'var(--text-body)',
+        fontFamily: 'var(--font-text)', fontSize: 15, fontWeight: active ? 600 : 500, transition: 'background-color var(--duration-fast)' }}>
+      <Icon name={item.icon} size={20} />
+      <span style={{ flex: 1, textAlign: 'left' }}>{item[locale === 'es-ES' ? 'es' : 'pt']}</span>
+      {badge ? <span style={{ minWidth: 22, height: 22, padding: '0 7px', boxSizing: 'border-box', borderRadius: 99, background: 'var(--danger)', color: '#fff', fontSize: 12, fontWeight: 700, display: 'inline-grid', placeItems: 'center' }}>{badge}</span> : null}
+    </button>
+  );
+}
+
+function Sidebar({ screen, setScreen, locale, agentOn, setAgentOn, handoffs }) {
+  const es = locale === 'es-ES';
+  return (
+    <aside style={{ width: 'var(--sidebar-w)', flex: 'none', display: 'flex', flexDirection: 'column', gap: 24, padding: '20px 14px', boxSizing: 'border-box', background: 'var(--surface-card)', borderRight: '1px solid var(--border-subtle)', height: '100%', overflowY: 'auto' }}>
+      <div style={{ padding: '4px 10px' }}><Logo size={28} tone={document.documentElement.dataset.theme === 'dark' ? 'white' : 'color'} /></div>
+      <nav style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+        {NAV.map((n) => <NavItem key={n.id} item={n} locale={locale} active={screen === n.id} onClick={() => setScreen(n.id)} badge={n.id === 'conversas' ? handoffs : 0} />)}
+      </nav>
+      <div style={{ flex: 1 }} />
+      <div style={{ padding: 14, borderRadius: 16, background: 'var(--ai-surface)', border: '1px solid var(--ai-border)', display: 'flex', flexDirection: 'column', gap: 6 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, color: 'var(--ai-accent-text)', fontSize: 13, fontWeight: 700 }}><Icon name="sparkles" size={16} />{es ? 'Agente IA' : 'Agente IA'}</div>
+        <div style={{ fontSize: 13, lineHeight: '18px', color: 'var(--text-body)' }}>{agentOn ? (es ? 'Respondiendo en WhatsApp 24 h.' : 'Respondendo no WhatsApp 24h.') : (es ? 'Pausado. La recepción responde.' : 'Pausado. A recepção responde.')}</div>
+        <Switch checked={agentOn} onChange={setAgentOn} label={agentOn ? (es ? 'Activo' : 'Ativo') : (es ? 'Pausado' : 'Pausado')} />
+      </div>
+      <NavItem item={{ icon: 'settings', pt: 'Configurações', es: 'Ajustes' }} locale={locale} onClick={() => {}} />
+    </aside>
+  );
+}
+
+function Topbar({ title, subtitle, locale, setLocale, theme, setTheme, actions }) {
+  const es = locale === 'es-ES';
+  return (
+    <header style={{ height: 'var(--topbar-h)', flex: 'none', display: 'flex', alignItems: 'center', gap: 16, padding: '0 28px', borderBottom: '1px solid var(--border-subtle)', background: 'var(--surface-card)' }}>
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <h1 style={{ fontSize: 20, lineHeight: '28px', fontWeight: 700, letterSpacing: '-0.01em', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{title}</h1>
+        {subtitle && <div style={{ fontSize: 13, color: 'var(--text-muted)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{subtitle}</div>}
+      </div>
+      {actions}
+      <div style={{ display: 'flex', alignItems: 'center', height: 36, borderRadius: 10, background: 'var(--bg-sunken)', padding: 3 }}>
+        {['pt-BR', 'es-ES'].map((l) => <button key={l} type="button" onClick={() => setLocale(l)} style={{ height: 30, padding: '0 10px', border: 0, borderRadius: 8, cursor: 'pointer', fontFamily: 'var(--font-text)', fontSize: 12.5, fontWeight: 600, background: locale === l ? 'var(--surface-card)' : 'transparent', color: locale === l ? 'var(--text-strong)' : 'var(--text-muted)', boxShadow: locale === l ? 'var(--shadow-xs)' : 'none' }}>{l === 'pt-BR' ? 'PT' : 'ES'}</button>)}
+      </div>
+      <IconButton icon={theme === 'dark' ? 'sun' : 'moon'} label={es ? 'Cambiar tema' : 'Alternar tema'} onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')} />
+      <IconButton icon="bell" label={es ? 'Notificaciones' : 'Notificações'} badge={true} />
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10, paddingLeft: 8, borderLeft: '1px solid var(--border-subtle)' }}>
+        <Avatar name="Carla Mendes" size={36} status="online" />
+        <div style={{ lineHeight: '18px' }}><div style={{ fontSize: 14, fontWeight: 600, color: 'var(--text-strong)' }}>Carla Mendes</div><div style={{ fontSize: 12, color: 'var(--text-muted)' }}>{es ? 'Recepción' : 'Recepção'}</div></div>
+      </div>
+    </header>
+  );
+}
+
+Object.assign(window, { Sidebar, Topbar });
+})();
+
+</script>
+<!-- inlined from Dashboard.jsx (Babel cannot fetch external .jsx over file://) -->
+<script type="text/babel">
+(() => {
+const { KpiCard, HandoffAlert, AppointmentCard, Card, Button, IconButton, Badge, Icon } = window.ForgeonClinicDesignSystem_5b731b;
+
+function Dashboard({ locale, go, openConversation, handoffs }) {
+  const es = locale === 'es-ES';
+  const D = window.FC_DATA;
+  const today = [...D.appointments.ana, ...D.appointments.paulo, ...D.appointments.julia].filter((a) => a.day === 'ter').sort((a, b) => a.start.localeCompare(b.start));
+  const prof = (a) => (D.appointments.ana.includes(a) ? 'Dra. Ana Lima' : D.appointments.paulo.includes(a) ? 'Dr. Paulo Reis' : 'Dra. Júlia Prado');
+  const activity = es
+    ? [['calendar-check', 'Confirmó la cita de Helena Rocha', '18:22'], ['repeat', 'Reprogramó a Marina Souza para el viernes 10:30', '09:11'], ['hand', 'Pidió ayuda humana para Marcos Teixeira', '09:14'], ['bell', 'Envió 14 recordatorios para mañana', '08:00']]
+    : [['calendar-check', 'Confirmou a consulta de Helena Rocha', '18:22'], ['repeat', 'Remarcou Marina Souza para sexta 10:30', '09:11'], ['hand', 'Pediu ajuda humana para Marcos Teixeira', '09:14'], ['bell', 'Enviou 14 lembretes para amanhã', '08:00']];
+  return (
+    <div style={{ padding: 28, display: 'flex', flexDirection: 'column', gap: 24, maxWidth: 1200 }}>
+      {handoffs > 0 && (
+        <HandoffAlert urgency="urgent" locale={locale} title={es ? 'Marcos Teixeira necesita a alguien del equipo' : 'Marcos Teixeira precisa de alguém da equipe'}
+          reason={es ? 'Dolor y sangrado tras la extracción de ayer. El agente ya avisó al paciente.' : 'Dor e sangramento após a extração de ontem. O agente já avisou o paciente.'}
+          quote={es ? 'Me duele bastante y sangra un poco' : 'Tá doendo bastante e sangrando um pouco'} patient="Marcos" waiting={es ? 'hace 4 min' : 'há 4 min'}
+          onAccept={() => openConversation('c1')} onView={() => openConversation('c1')} />
+      )}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(230px, 1fr))', gap: 16 }}>
+        <KpiCard icon="calendar-days" label={es ? 'Citas hoy' : 'Consultas hoje'} value={today.length} hint={es ? '3 profesionales' : '3 profissionais'} />
+        <KpiCard icon="calendar-check" label={es ? 'Tasa de confirmación' : 'Taxa de confirmação'} value="92,4" unit="%" delta={{ value: '+3,1 p.p.', trend: 'up' }} sparkline={[80, 84, 83, 88, 87, 90, 92]} />
+        <KpiCard icon="user-x" label={es ? 'Ausencias (7 días)' : 'Faltas (7 dias)'} value="3" delta={{ value: '−40%', trend: 'down', good: true }} hint={es ? 'vs. semana pasada' : 'vs. semana passada'} />
+        <KpiCard tone="ai" icon="sparkles" label={es ? 'Resueltas por la IA' : 'Resolvidas pela IA'} value="87" unit="%" delta={{ value: '+5%', trend: 'up' }} sparkline={[70, 72, 78, 80, 83, 85, 87]} />
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: 20, alignItems: 'start' }}>
+        <Card title={es ? 'Citas de hoy' : 'Consultas de hoje'} subtitle={es ? 'Martes, 14 de octubre' : 'Terça, 14 de outubro'} actions={<Button size="sm" variant="ghost" iconRight="arrow-right" onClick={() => go('agenda')}>{es ? 'Ver agenda' : 'Ver agenda'}</Button>}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+            {today.map((a) => <AppointmentCard key={a.id} compact={false} time={a.start} endTime={a.end} patient={a.patient} service={a.service} professional={prof(a)} status={a.status} bookedByAgent={a.byAgent} locale={locale} actions={<IconButton icon="message-circle" label={es ? 'Abrir conversación' : 'Abrir conversa'} size="sm" onClick={() => go('conversas')} />} />)}
+          </div>
+        </Card>
+        <Card title={es ? 'Actividad del agente' : 'Atividade do agente'} subtitle={es ? 'Últimas 24 h' : 'Últimas 24h'}>
+          <ol style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: 16 }}>
+            {activity.map(([ic, t, h], i) => (
+              <li key={i} style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
+                <span style={{ width: 32, height: 32, flex: 'none', borderRadius: 10, display: 'grid', placeItems: 'center', background: ic === 'hand' ? 'var(--danger-surface)' : 'var(--ai-surface)', color: ic === 'hand' ? 'var(--danger-text)' : 'var(--ai-accent-text)' }}><Icon name={ic} size={16} /></span>
+                <span style={{ flex: 1, fontSize: 14, lineHeight: '20px', color: 'var(--text-body)', paddingTop: 6 }}>{t}</span>
+                <span style={{ fontSize: 12.5, color: 'var(--text-subtle)', fontVariantNumeric: 'tabular-nums', paddingTop: 7 }}>{h}</span>
+              </li>
+            ))}
+          </ol>
+        </Card>
+      </div>
+    </div>
+  );
+}
+
+Object.assign(window, { Dashboard });
+})();
+
+</script>
+<!-- inlined from Agenda.jsx (Babel cannot fetch external .jsx over file://) -->
+<script type="text/babel">
+(() => {
+const { WeekCalendar, Tabs, Button, IconButton, Card, StatusBadge, Avatar, Dialog, TimeSlots, Icon, Badge, Select, AppointmentCard } = window.ForgeonClinicDesignSystem_5b731b;
+
+function Detail({ a, prof, locale, onConfirm, onReschedule, onCancel }) {
+  const es = locale === 'es-ES';
+  const D = window.FC_DATA;
+  const day = D.days.find((d) => d.key === a.day);
+  const row = (icon, label, val) => (
+    <div style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
+      <span style={{ color: 'var(--text-subtle)', paddingTop: 2 }}><Icon name={icon} size={18} /></span>
+      <div><div style={{ fontSize: 12.5, color: 'var(--text-muted)' }}>{label}</div><div style={{ fontSize: 15, fontWeight: 500, color: 'var(--text-strong)', fontVariantNumeric: 'tabular-nums' }}>{val}</div></div>
+    </div>
+  );
+  return (
+    <Card padding="md" style={{ position: 'sticky', top: 0 }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <Avatar name={a.patient} size={48} />
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <div style={{ fontFamily: 'var(--font-display)', fontSize: 18, fontWeight: 700, color: 'var(--text-strong)' }}>{a.patient}</div>
+            <div style={{ marginTop: 4, display: 'flex', gap: 6, flexWrap: 'wrap' }}><StatusBadge status={a.status} locale={locale} size="sm" />{a.byAgent && <Badge tone="ai" size="sm" icon="sparkles">{es ? 'Agendada por IA' : 'Agendada pela IA'}</Badge>}</div>
+          </div>
+        </div>
+        {row('calendar', es ? 'Fecha' : 'Data', `${day.label} ${day.date}/10 · ${a.start}–${a.end}`)}
+        {row('stethoscope', es ? 'Servicio' : 'Serviço', a.service || '—')}
+        {row('user-round', es ? 'Profesional' : 'Profissional', prof.name)}
+        {row('whatsapp', 'WhatsApp', '+55 11 98765-4321')}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8, paddingTop: 4 }}>
+          {a.status === 'pending' && <Button iconLeft="check" fullWidth onClick={onConfirm}>{es ? 'Marcar como confirmada' : 'Marcar como confirmada'}</Button>}
+          <Button variant="secondary" iconLeft="repeat" fullWidth onClick={onReschedule} disabled={a.status === 'cancelled'}>{es ? 'Reprogramar' : 'Remarcar'}</Button>
+          <Button variant="ghost" iconLeft="calendar-x" fullWidth onClick={onCancel} disabled={a.status === 'cancelled'} style={{ color: a.status === 'cancelled' ? undefined : 'var(--danger-text)' }}>{es ? 'Cancelar cita' : 'Cancelar consulta'}</Button>
+        </div>
+      </div>
+    </Card>
+  );
+}
+
+function Agenda({ locale, toast }) {
+  const es = locale === 'es-ES';
+  const D = window.FC_DATA;
+  const [prof, setProf] = React.useState('ana');
+  const [view, setView] = React.useState('semana');
+  const [appts, setAppts] = React.useState(D.appointments);
+  const [sel, setSel] = React.useState('a3');
+  const [dlg, setDlg] = React.useState(null);
+  const [slot, setSlot] = React.useState('10:30');
+  const list = appts[prof];
+  const cur = list.find((a) => a.id === sel) || list[0];
+  const P = D.professionals.find((p) => p.id === prof);
+  const update = (patch) => setAppts((s) => ({ ...s, [prof]: s[prof].map((a) => (a.id === cur.id ? { ...a, ...patch } : a)) }));
+  const days = D.days.map((d) => ({ ...d, label: es ? { Seg: 'Lun', Ter: 'Mar', Qua: 'Mié', Qui: 'Jue', Sex: 'Vie' }[d.label] : d.label }));
+  return (
+    <div style={{ padding: 28, display: 'flex', flexDirection: 'column', gap: 20 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap' }}>
+        <Tabs value={prof} onChange={(p) => { setProf(p); setSel(appts[p][0].id); }} items={D.professionals.map((p) => ({ id: p.id, label: p.name, count: appts[p.id].filter((a) => a.day === 'ter').length }))} style={{ flex: 1 }} />
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <IconButton icon="chevron-left" label={es ? 'Semana anterior' : 'Semana anterior'} variant="secondary" size="sm" />
+          <span style={{ fontSize: 14, fontWeight: 600, color: 'var(--text-strong)', fontVariantNumeric: 'tabular-nums', minWidth: 120, textAlign: 'center' }}>13 – 17 {es ? 'oct' : 'out'} 2026</span>
+          <IconButton icon="chevron-right" label={es ? 'Semana siguiente' : 'Próxima semana'} variant="secondary" size="sm" />
+          <Tabs variant="segmented" size="sm" value={view} onChange={setView} items={[{ id: 'dia', label: es ? 'Día' : 'Dia' }, { id: 'semana', label: 'Semana' }]} style={{ marginLeft: 8 }} />
+        </div>
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr) 300px', gap: 20, alignItems: 'start' }}>
+        {view === 'semana'
+          ? <div style={{ overflowX: 'auto', minWidth: 0 }}><WeekCalendar style={{ minWidth: 640 }} days={days} appointments={list} startHour={8} endHour={18} hourHeight={52} now="10:40" selectedId={cur && cur.id} onSelect={(a) => setSel(a.id)} /></div>
+          : <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>{list.filter((a) => a.day === 'ter').map((a) => <AppointmentCard key={a.id} time={a.start} endTime={a.end} patient={a.patient} service={a.service} professional={P.name} status={a.status} bookedByAgent={a.byAgent} locale={locale} selected={cur && a.id === cur.id} onClick={() => setSel(a.id)} />)}</div>}
+        {cur && <Detail a={cur} prof={P} locale={locale} onConfirm={() => { update({ status: 'confirmed' }); toast({ tone: 'success', title: es ? 'Cita confirmada' : 'Consulta confirmada' }); }} onReschedule={() => setDlg('resched')} onCancel={() => setDlg('cancel')} />}
+      </div>
+      {dlg === 'resched' && (
+        <Dialog title={es ? `Reprogramar a ${cur.patient}` : `Remarcar ${cur.patient}`} description={es ? 'Elige un horario libre. Enviaremos la nueva fecha por WhatsApp.' : 'Escolha um horário livre. Vamos enviar a nova data pelo WhatsApp.'} icon="repeat" onClose={() => setDlg(null)} width={520}
+          actions={<><Button variant="ghost" onClick={() => setDlg(null)}>{es ? 'Volver' : 'Voltar'}</Button><Button iconLeft="send" onClick={() => { update({ status: 'rescheduled', start: slot }); setDlg(null); toast({ tone: 'success', title: es ? 'Cita reprogramada' : 'Consulta remarcada', description: es ? `${cur.patient} recibió la nueva fecha por WhatsApp.` : `${cur.patient} recebeu a nova data no WhatsApp.` }); }}>{es ? 'Reprogramar y avisar' : 'Remarcar e avisar'}</Button></>}>
+          <TimeSlots value={slot} onChange={setSlot} columns={4} groups={[{ label: es ? 'Mañana' : 'Manhã', slots: ['08:00', { time: '09:00', available: false }, { time: '10:30', suggested: true }, '11:00'] }, { label: es ? 'Tarde' : 'Tarde', slots: ['14:00', { time: '15:00', available: false }, { time: '16:30', suggested: true }, '17:00'] }]} />
+        </Dialog>
+      )}
+      {dlg === 'cancel' && (
+        <Dialog tone="danger" icon="calendar-x" title={es ? '¿Cancelar la cita?' : 'Cancelar consulta?'} description={es ? `Avisaremos a ${cur.patient} por WhatsApp y liberaremos el horario.` : `Vamos avisar ${cur.patient} pelo WhatsApp e liberar o horário.`} onClose={() => setDlg(null)}
+          actions={<><Button variant="ghost" onClick={() => setDlg(null)}>{es ? 'Volver' : 'Voltar'}</Button><Button variant="danger" onClick={() => { update({ status: 'cancelled' }); setDlg(null); toast({ tone: 'info', title: es ? 'Cita cancelada' : 'Consulta cancelada', description: es ? 'El horario quedó libre.' : 'O horário ficou livre.' }); }}>{es ? 'Cancelar cita' : 'Cancelar consulta'}</Button></>} />
+      )}
+    </div>
+  );
+}
+
+Object.assign(window, { Agenda });
+})();
+
+</script>
+<!-- inlined from Conversations.jsx (Babel cannot fetch external .jsx over file://) -->
+<script type="text/babel">
+(() => {
+const { ConversationItem, ChatBubble, Button, IconButton, Icon, Badge, Tabs, Input, Avatar, Card, StatusBadge, HandoffAlert } = window.ForgeonClinicDesignSystem_5b731b;
+
+function Composer({ disabled, onSend, locale, onTake }) {
+  const es = locale === 'es-ES';
+  const [v, setV] = React.useState('');
+  if (disabled) {
+    return (
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '14px 20px', borderTop: '1px solid var(--border-subtle)', background: 'var(--ai-surface)' }}>
+        <Icon name="sparkles" size={18} color="var(--ai-accent-text)" />
+        <span style={{ flex: 1, fontSize: 14, color: 'var(--text-body)' }}>{es ? 'El agente IA está atendiendo esta conversación.' : 'O agente IA está cuidando desta conversa.'}</span>
+        <Button size="sm" variant="secondary" iconLeft="headset" onClick={onTake}>{es ? 'Atender yo' : 'Assumir conversa'}</Button>
+      </div>
+    );
+  }
+  const send = () => { if (!v.trim()) return; onSend(v.trim()); setV(''); };
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '12px 16px', borderTop: '1px solid var(--border-subtle)', background: 'var(--surface-card)' }}>
+      <IconButton icon="paperclip" label={es ? 'Adjuntar' : 'Anexar'} />
+      <IconButton icon="file-text" label={es ? 'Plantillas' : 'Modelos'} />
+      <input value={v} onChange={(e) => setV(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && send()} placeholder={es ? 'Escribe un mensaje…' : 'Escreva uma mensagem…'}
+        style={{ flex: 1, height: 44, borderRadius: 12, border: '1px solid var(--border-default)', padding: '0 14px', font: 'inherit', fontSize: 15, background: 'var(--surface-subtle)', color: 'var(--text-strong)', outline: 'none' }} />
+      <Button iconLeft="send" onClick={send}>{es ? 'Enviar' : 'Enviar'}</Button>
+    </div>
+  );
+}
+
+function Conversations({ locale, initialId, toast, onResolveHandoff }) {
+  const es = locale === 'es-ES';
+  const D = window.FC_DATA;
+  const [convs, setConvs] = React.useState(D.conversations);
+  const [id, setId] = React.useState(initialId || 'c1');
+  const [filter, setFilter] = React.useState('todas');
+  const c = convs.find((x) => x.id === id);
+  const scroller = React.useRef(null);
+  React.useEffect(() => { if (scroller.current) scroller.current.scrollTop = scroller.current.scrollHeight; }, [id, c.messages.length]);
+  const patch = (p) => setConvs((s) => s.map((x) => (x.id === id ? { ...x, ...p } : x)));
+  const take = () => {
+    patch({ urgent: false, handledBy: 'human', unread: 0, messages: [...c.messages, { from: 'system', text: (es ? 'Carla asumió la conversación · ' : 'Carla assumiu a conversa · ') + '09:19' }] });
+    onResolveHandoff && onResolveHandoff(id);
+    toast({ tone: 'success', title: es ? 'Conversación asumida' : 'Você assumiu a conversa', description: es ? 'El agente queda en pausa para este paciente.' : 'O agente fica em pausa para este paciente.' });
+  };
+  const send = (text) => patch({ messages: [...c.messages, { from: 'human', author: 'Carla', text, time: '09:20', status: 'sent' }], preview: text, time: '09:20' });
+  const shown = convs.filter((x) => filter === 'todas' || (filter === 'humano' ? x.urgent : filter === 'ia' ? !x.urgent && x.handledBy === 'agent' : x.handledBy === 'human' && !x.urgent));
+  const human = c.handledBy === 'human' && !c.urgent;
+  const root = React.useRef(null);
+  const [w, setW] = React.useState(0);
+  React.useLayoutEffect(() => { const el = root.current; if (!el) return; const m = () => setW(el.clientWidth); m(); const ro = new ResizeObserver(m); ro.observe(el); window.addEventListener('resize', m); return () => { ro.disconnect(); window.removeEventListener('resize', m); }; }, []);
+  const showAside = w >= 1100;
+  return (
+    <div ref={root} style={{ height: '100%', minHeight: 0, overflowX: 'auto' }}>
+    <div style={{ display: 'grid', gridTemplateColumns: showAside ? 'minmax(260px,320px) minmax(360px,1fr) minmax(0,280px)' : 'minmax(240px,280px) minmax(360px,1fr)', height: '100%', minHeight: 0, minWidth: 640 }}>
+      <div style={{ borderRight: '1px solid var(--border-subtle)', background: 'var(--surface-card)', display: 'flex', flexDirection: 'column', minHeight: 0 }}>
+        <div style={{ padding: '16px 16px 0', display: 'flex', flexDirection: 'column', gap: 10 }}>
+          <Input iconLeft="search" placeholder={es ? 'Buscar paciente…' : 'Buscar paciente…'} size="sm" />
+          <Tabs size="sm" value={filter} onChange={setFilter} items={[{ id: 'todas', label: es ? 'Todas' : 'Todas' }, { id: 'humano', label: es ? 'Espera' : 'Aguardando', count: convs.filter((x) => x.urgent).length || undefined, urgent: true }, { id: 'ia', label: 'IA' }, { id: 'recepcao', label: es ? 'Recepción' : 'Recepção' }]} />
+        </div>
+        <div style={{ flex: 1, overflow: 'auto', padding: 8, display: 'flex', flexDirection: 'column', gap: 2 }}>
+          {shown.map((x) => <ConversationItem key={x.id} {...x} locale={locale} selected={x.id === id} onClick={() => { setId(x.id); setConvs((s) => s.map((y) => (y.id === x.id && !y.urgent ? { ...y, unread: 0 } : y))); }} />)}
+        </div>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', minHeight: 0, background: 'var(--chat-wallpaper)' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 20px', background: 'var(--surface-card)', borderBottom: '1px solid var(--border-subtle)' }}>
+          <Avatar name={c.name} size={40} />
+          <div style={{ flex: 1, minWidth: 0 }}><div style={{ fontWeight: 600, color: 'var(--text-strong)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{c.name}</div><div style={{ fontSize: 13, color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: 6, fontVariantNumeric: 'tabular-nums', whiteSpace: 'nowrap', overflow: 'hidden' }}><Icon name="whatsapp" size={13} color="var(--whatsapp-text)" />{c.phone}</div></div>
+          {c.urgent ? <Badge tone="danger" icon="hand">{es ? 'Espera humano' : 'Aguarda humano'}</Badge> : human ? <Badge tone="teal" icon="headset">{es ? 'Recepción' : 'Recepção'}</Badge> : <Badge tone="ai" icon="sparkles">Agente IA</Badge>}
+          <IconButton icon="ellipsis-vertical" label={es ? 'Más' : 'Mais'} />
+        </div>
+        {c.urgent && <div style={{ padding: '12px 20px 0' }}><HandoffAlert urgency="urgent" compact={w >= 1100} locale={locale} title={es ? 'El agente pidió ayuda humana' : 'O agente pediu ajuda humana'} reason={c.reason} waiting={es ? 'hace 4 min' : 'há 4 min'} onAccept={take} /></div>}
+        <div ref={scroller} style={{ flex: 1, overflowY: 'auto', overflowX: 'hidden', padding: 20, display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {c.messages.map((m, i) => (
+            <ChatBubble key={i} {...m} locale={locale}>
+              {m.slots && <div style={{ display: 'flex', gap: 6 }}>{m.slots.map((t) => <span key={t} style={{ padding: '6px 10px', borderRadius: 10, background: 'var(--surface-card)', border: '1px solid var(--teal-200)', fontWeight: 600, fontSize: 14, color: 'var(--teal-700)', fontVariantNumeric: 'tabular-nums' }}>{t}</span>)}</div>}
+            </ChatBubble>
+          ))}
+        </div>
+        <Composer disabled={!human} onTake={take} onSend={send} locale={locale} />
+      </div>
+      {showAside && <aside style={{ borderLeft: '1px solid var(--border-subtle)', background: 'var(--surface-card)', padding: 20, display: 'flex', flexDirection: 'column', gap: 18, overflow: 'auto' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8, textAlign: 'center', paddingTop: 8 }}>
+          <Avatar name={c.name} size={64} />
+          <div style={{ fontFamily: 'var(--font-display)', fontSize: 18, fontWeight: 700, color: 'var(--text-strong)' }}>{c.name}</div>
+          <div style={{ fontSize: 13, color: 'var(--text-muted)' }}>{es ? 'Paciente de' : 'Paciente de'} {c.professional}</div>
+        </div>
+        <div style={{ padding: 14, borderRadius: 14, background: 'var(--surface-subtle)', border: '1px solid var(--border-subtle)' }}>
+          <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: '.08em', textTransform: 'uppercase', color: 'var(--text-muted)' }}>{es ? 'Próxima cita' : 'Próxima consulta'}</div>
+          <div style={{ marginTop: 6, fontSize: 15, fontWeight: 600, color: 'var(--text-strong)', fontVariantNumeric: 'tabular-nums' }}>{c.next}</div>
+          <div style={{ marginTop: 8 }}><StatusBadge status="confirmed" locale={locale} size="sm" /></div>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          <Button variant="secondary" iconLeft="calendar-plus" fullWidth>{es ? 'Nueva cita' : 'Nova consulta'}</Button>
+          <Button variant="ghost" iconLeft="user" fullWidth>{es ? 'Ver ficha' : 'Ver ficha'}</Button>
+        </div>
+      </aside>}
+    </div>
+    </div>
+  );
+}
+
+Object.assign(window, { Conversations });
+})();
+
+</script>
+<!-- inlined from Patients.jsx (Babel cannot fetch external .jsx over file://) -->
+<script type="text/babel">
+(() => {
+const { PatientTable, Input, Tag, Button, Select, Card, Switch, Badge, Icon, IconButton, ChatBubble } = window.ForgeonClinicDesignSystem_5b731b;
+
+function Patients({ locale }) {
+  const es = locale === 'es-ES';
+  const D = window.FC_DATA;
+  const [q, setQ] = React.useState('');
+  const [f, setF] = React.useState('all');
+  const [sel, setSel] = React.useState(null);
+  const rows = D.patients.filter((p) => (f === 'all' || p.status === f) && p.name.toLowerCase().includes(q.toLowerCase()));
+  const count = (s) => D.patients.filter((p) => p.status === s).length;
+  return (
+    <div style={{ padding: 28, display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <div style={{ display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
+        <div style={{ width: 320 }}><Input iconLeft="search" placeholder={es ? 'Buscar por nombre o teléfono' : 'Buscar por nome ou telefone'} value={q} onChange={(e) => setQ(e.target.value)} /></div>
+        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', flex: 1 }}>
+          <Tag selected={f === 'all'} onClick={() => setF('all')} count={D.patients.length}>{es ? 'Todos' : 'Todos'}</Tag>
+          <Tag selected={f === 'pending'} onClick={() => setF('pending')} count={count('pending')}>{es ? 'Pendientes' : 'Pendentes'}</Tag>
+          <Tag selected={f === 'noshow'} onClick={() => setF('noshow')} count={count('noshow')}>{es ? 'No asistieron' : 'Faltaram'}</Tag>
+          <Tag selected={f === 'cancelled'} onClick={() => setF('cancelled')} count={count('cancelled')}>{es ? 'Canceladas' : 'Canceladas'}</Tag>
+        </div>
+        <Button variant="secondary" iconLeft="download">{es ? 'Exportar' : 'Exportar'}</Button>
+        <Button iconLeft="user-plus">{es ? 'Nuevo paciente' : 'Novo paciente'}</Button>
+      </div>
+      <PatientTable rows={rows} locale={locale} selectedId={sel} onRowClick={(r) => setSel(r.id)} />
+      {rows.length === 0 && <div style={{ padding: 40, textAlign: 'center', color: 'var(--text-muted)' }}>{es ? 'Ningún paciente encontrado.' : 'Nenhum paciente encontrado.'}</div>}
+    </div>
+  );
+}
+
+function renderBody(body) {
+  return body.split(/(\{\{[^}]+\}\})/g).map((part, i) => part.startsWith('{{')
+    ? <code key={i} style={{ fontFamily: 'var(--font-mono)', fontSize: 13, background: 'var(--ai-surface)', color: 'var(--ai-accent-text)', padding: '1px 5px', borderRadius: 6 }}>{part}</code>
+    : <span key={i}>{part}</span>);
+}
+function fill(body) {
+  const vals = { 'paciente.nome': 'Marina', 'paciente.nombre': 'Lucía', data: 'quarta, 15/10', fecha: 'miércoles 15/10', hora: '14:30', profissional: 'a Dra. Ana Lima', profesional: 'el Dr. Pablo Ruiz', 'clinica.endereco': 'Rua Harmonia, 120 · Vila Madalena' };
+  return body.replace(/\{\{([^}]+)\}\}/g, (_, k) => vals[k] || k);
+}
+
+function Templates({ locale }) {
+  const es = locale === 'es-ES';
+  const [list, setList] = React.useState(window.FC_DATA.templates);
+  const [id, setId] = React.useState('t1');
+  const t = list.find((x) => x.id === id);
+  return (
+    <div style={{ padding: 28, display: 'grid', gridTemplateColumns: 'minmax(0,1fr) 380px', gap: 20, alignItems: 'start' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+        {list.map((x) => (
+          <Card key={x.id} variant={x.id === id ? 'selected' : 'outlined'} padding="sm" onClick={() => setId(x.id)}>
+            <div style={{ display: 'flex', gap: 14, alignItems: 'flex-start' }}>
+              <span style={{ width: 40, height: 40, flex: 'none', borderRadius: 12, display: 'grid', placeItems: 'center', background: x.channel === 'email' ? 'var(--teal-50)' : '#E3F9EA', color: x.channel === 'email' ? 'var(--teal-700)' : 'var(--whatsapp-text)' }}><Icon name={x.channel === 'email' ? 'mail' : 'whatsapp'} size={20} /></span>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
+                  <span style={{ fontWeight: 600, color: 'var(--text-strong)' }}>{x.name}</span>
+                  <Badge size="sm">{x.lang}</Badge>
+                  {!x.active && <Badge size="sm" tone="warning">{es ? 'Pausada' : 'Pausado'}</Badge>}
+                </div>
+                <div style={{ marginTop: 6, fontSize: 14, lineHeight: '22px', color: 'var(--text-body)' }}>{renderBody(x.body)}</div>
+                <div style={{ marginTop: 6, fontSize: 12.5, color: 'var(--text-muted)', fontVariantNumeric: 'tabular-nums' }}>{x.sent} {es ? 'envíos en 30 días' : 'envios em 30 dias'}</div>
+              </div>
+              <div onClick={(e) => e.stopPropagation()}><Switch checked={x.active} onChange={(v) => setList((s) => s.map((y) => (y.id === x.id ? { ...y, active: v } : y)))} /></div>
+            </div>
+          </Card>
+        ))}
+      </div>
+      <Card title={es ? 'Vista previa' : 'Pré-visualização'} subtitle={es ? 'Así lo verá el paciente' : 'Como o paciente vai ver'} style={{ position: 'sticky', top: 0 }}>
+        <div style={{ background: 'var(--chat-wallpaper)', borderRadius: 14, padding: 16, display: 'flex', flexDirection: 'column', gap: 8, minHeight: 200 }}>
+          <ChatBubble from="agent" locale={t.lang} text={fill(t.body)} time="18:00" status="read" />
+          {t.id === 't1' && <ChatBubble from="patient" text="Confirmo, obrigada!" time="18:04" />}
+        </div>
+        <div style={{ display: 'flex', gap: 8, marginTop: 16 }}><Button variant="secondary" iconLeft="pencil" fullWidth>{es ? 'Editar' : 'Editar'}</Button><Button variant="soft" iconLeft="send" fullWidth>{es ? 'Enviar prueba' : 'Enviar teste'}</Button></div>
+      </Card>
+    </div>
+  );
+}
+
+Object.assign(window, { Patients, Templates });
+})();
+
+</script>
+<script type="text/babel">
+(() => {
+const { Toast } = window.ForgeonClinicDesignSystem_5b731b;
+const TITLES = {
+  inicio: { pt: ['Bom dia, Carla', 'Terça, 14 de outubro · Clínica Sorriso & Mente'], es: ['Buenos días, Carla', 'Martes, 14 de octubre · Clínica Sorriso & Mente'] },
+  agenda: { pt: ['Agenda', 'Semana de 13 a 17 de outubro'], es: ['Agenda', 'Semana del 13 al 17 de octubre'] },
+  conversas: { pt: ['Conversas', 'WhatsApp · atendidas pelo agente e pela recepção'], es: ['Conversaciones', 'WhatsApp · atendidas por el agente y la recepción'] },
+  pacientes: { pt: ['Pacientes', '8 pacientes ativos'], es: ['Pacientes', '8 pacientes activos'] },
+  mensagens: { pt: ['Mensagens', 'Modelos de WhatsApp e e-mail enviados pelo agente'], es: ['Plantillas', 'Mensajes de WhatsApp y e-mail que envía el agente'] },
+};
+function App() {
+  const [screen, setScreen] = React.useState(localStorage.getItem('fc-screen') || 'inicio');
+  const [locale, setLocale] = React.useState('pt-BR');
+  const [theme, setTheme] = React.useState('light');
+  const [agentOn, setAgentOn] = React.useState(true);
+  const [handoffs, setHandoffs] = React.useState(1);
+  const [convId, setConvId] = React.useState('c1');
+  const [toast, setToast] = React.useState(null);
+  React.useEffect(() => { localStorage.setItem('fc-screen', screen); }, [screen]);
+  React.useEffect(() => { document.documentElement.dataset.theme = theme; document.documentElement.lang = locale; }, [theme, locale]);
+  React.useEffect(() => { if (!toast) return; const t = setTimeout(() => setToast(null), 4500); return () => clearTimeout(t); }, [toast]);
+  const t = TITLES[screen][locale === 'es-ES' ? 'es' : 'pt'];
+  const openConversation = (id) => { setConvId(id); setScreen('conversas'); };
+  const common = { locale, toast: setToast };
+  return (
+    <div style={{ display: 'flex', height: '100%', background: 'var(--bg-app)', color: 'var(--text-body)' }}>
+      <Sidebar screen={screen} setScreen={setScreen} locale={locale} agentOn={agentOn} setAgentOn={(v) => { setAgentOn(v); setToast({ tone: 'ai', title: v ? (locale === 'es-ES' ? 'Agente activado' : 'Agente ativado') : (locale === 'es-ES' ? 'Agente en pausa' : 'Agente pausado'), description: v ? undefined : (locale === 'es-ES' ? 'Los mensajes nuevos irán a la recepción.' : 'Novas mensagens vão para a recepção.') }); }} handoffs={handoffs} />
+      <main style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column' }}>
+        <Topbar title={t[0]} subtitle={t[1]} locale={locale} setLocale={setLocale} theme={theme} setTheme={setTheme} />
+        <div style={{ flex: 1, minHeight: 0, overflow: screen === 'conversas' ? 'hidden' : 'auto' }}>
+          {screen === 'inicio' && <Dashboard {...common} go={setScreen} openConversation={openConversation} handoffs={handoffs} />}
+          {screen === 'agenda' && <Agenda {...common} />}
+          {screen === 'conversas' && <Conversations key={convId} {...common} initialId={convId} onResolveHandoff={(id) => id === 'c1' && setHandoffs(0)} />}
+          {screen === 'pacientes' && <Patients {...common} />}
+          {screen === 'mensagens' && <Templates {...common} />}
+        </div>
+      </main>
+      {toast && <div style={{ position: 'fixed', right: 24, bottom: 24, zIndex: 2000 }}><Toast {...toast} onClose={() => setToast(null)} /></div>}
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+})();
+</script></body></html>

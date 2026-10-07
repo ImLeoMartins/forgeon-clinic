@@ -1,0 +1,25 @@
+/* Shadows, focus, motion */
+:root{
+--shadow-xs:0 1px 2px rgba(28,36,48,.05);
+--shadow-sm:0 1px 2px rgba(28,36,48,.04),0 2px 6px rgba(28,36,48,.05);
+--shadow-md:0 2px 4px rgba(28,36,48,.04),0 8px 20px rgba(28,36,48,.07);
+--shadow-lg:0 4px 8px rgba(28,36,48,.04),0 20px 44px rgba(28,36,48,.12);
+--shadow-focus-danger:0 0 0 3px rgba(210,69,61,.25);
+--shadow-focus-input:0 0 0 3px rgba(14,140,128,.18);
+--shadow-switch-thumb:0 1px 3px rgba(28,36,48,.25);
+--ring-surface:0 0 0 2px var(--surface-card);
+--ring-selected:0 0 0 2px var(--teal-200);
+--backdrop-nav:blur(12px); /* @kind other — landing sticky nav only */
+--pattern-blocked:repeating-linear-gradient(135deg,transparent 0 6px,var(--sand-200) 6px 7px); /* hatched blocked calendar time */
+--focus-ring:0 0 0 2px #FFFFFF,0 0 0 4px #0E8C80;
+--overlay-scrim:rgba(28,36,48,.40);
+--ease-standard:cubic-bezier(.2,.7,.2,1); /* @kind other */
+--ease-exit:cubic-bezier(.4,0,1,1); /* @kind other */
+--duration-fast:120ms; /* @kind other */
+--duration-base:200ms; /* @kind other */
+--duration-slow:320ms; /* @kind other */
+}
+@media (prefers-reduced-motion:reduce){:root{--duration-fast:0ms; /* @kind other */
+--duration-base:0ms; /* @kind other */
+--duration-slow:0ms; /* @kind other */
+}}

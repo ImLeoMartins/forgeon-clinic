@@ -1,0 +1,216 @@
+<!-- @dsCard group="Site (landing)" viewport="1440x900" name="Landing de vendas" subtitle="Hero, como funciona, especialidades, preços, FAQ — PT/ES" -->
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Forgeon Clinic — Agente de IA no WhatsApp para clínicas</title>
+<link rel="stylesheet" href="../../../styles.css">
+<style>html{scroll-behavior:smooth}</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_runtime/ds-bundle.js"></script>
+<script src="copy.js"></script>
+</head><body><div id="root"></div>
+<!-- inlined from Sections.jsx (Babel cannot fetch external .jsx over file://) -->
+<script type="text/babel">
+(() => {
+const { Logo, Button, Icon, Badge, ChatBubble, Tabs, Card, Dialog, Input, Select } = window.ForgeonClinicDesignSystem_5b731b;
+const W = { maxWidth: 1200, margin: '0 auto', padding: '0 32px', boxSizing: 'border-box' };
+
+function SiteNav({ c, locale, setLocale, onCta }) {
+  return (
+    <header style={{ position: 'sticky', top: 0, zIndex: 20, background: 'rgba(250,248,245,.88)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', borderBottom: '1px solid var(--border-subtle)' }}>
+      <div style={{ ...W, height: 72, display: 'flex', alignItems: 'center', gap: 32 }}>
+        <Logo size={28} />
+        <nav style={{ display: 'flex', gap: 28, flex: 1 }}>{c.nav.map((n, i) => <a key={n} href={'#s' + i} style={{ color: 'var(--text-body)', textDecoration: 'none', fontSize: 15, fontWeight: 500, whiteSpace: 'nowrap' }}>{n}</a>)}</nav>
+        <button type="button" onClick={() => setLocale(locale === 'pt-BR' ? 'es-ES' : 'pt-BR')} style={{ display: 'inline-flex', alignItems: 'center', gap: 6, height: 40, padding: '0 10px', border: 0, background: 'transparent', cursor: 'pointer', font: '500 14px var(--font-text)', color: 'var(--text-body)' }}><Icon name="globe" size={18} />{locale === 'pt-BR' ? 'PT' : 'ES'}</button>
+        <Button variant="ghost">{c.login}</Button>
+        <Button onClick={onCta}>{c.cta}</Button>
+      </div>
+    </header>
+  );
+}
+
+function ChatPreview({ c, locale }) {
+  return (
+    <div style={{ width: '100%', maxWidth: 440, borderRadius: 28, background: 'var(--surface-card)', boxShadow: 'var(--shadow-lg)', border: '1px solid var(--border-subtle)', overflow: 'hidden' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '14px 18px', borderBottom: '1px solid var(--border-subtle)' }}>
+        <span style={{ width: 40, height: 40, borderRadius: 99, background: 'var(--teal-50)', display: 'grid', placeItems: 'center' }}><Logo variant="symbol" size={20} /></span>
+        <div style={{ flex: 1 }}><div style={{ fontWeight: 600, color: 'var(--text-strong)', fontSize: 15 }}>{c.chat.name}</div><div style={{ fontSize: 12.5, color: 'var(--whatsapp-text)', display: 'flex', alignItems: 'center', gap: 4 }}><Icon name="whatsapp" size={12} />{c.chat.status}</div></div>
+      </div>
+      <div style={{ background: 'var(--chat-wallpaper)', padding: 18, display: 'flex', flexDirection: 'column', gap: 10 }}>
+        <ChatBubble from="patient" text={c.chat.p1} time="10:02" />
+        <ChatBubble from="agent" locale={locale} text={c.chat.a1} time="10:02" status="read">
+          <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>{c.chat.slots.map((s, i) => <span key={s} style={{ padding: '6px 10px', borderRadius: 10, background: i === 1 ? 'var(--action-primary)' : 'var(--surface-card)', color: i === 1 ? '#fff' : 'var(--teal-700)', border: '1px solid var(--teal-200)', fontWeight: 600, fontSize: 13.5, fontVariantNumeric: 'tabular-nums' }}>{s}</span>)}</div>
+        </ChatBubble>
+        <ChatBubble from="patient" text={c.chat.p2} time="10:03" />
+        <ChatBubble from="agent" locale={locale} showLabel={false} text={c.chat.a2} time="10:03" status="read" />
+      </div>
+    </div>
+  );
+}
+
+function Hero({ c, locale, onCta }) {
+  return (
+    <section style={{ ...W, display: 'grid', gridTemplateColumns: 'minmax(0,1.1fr) minmax(0,1fr)', gap: 64, alignItems: 'center', padding: '80px 32px 96px' }}>
+      <div>
+        <Badge tone="ai" icon="sparkles">{c.eyebrow}</Badge>
+        <h1 style={{ marginTop: 20, fontSize: 56, lineHeight: '64px', fontWeight: 800, letterSpacing: '-0.025em', textWrap: 'balance' }}>{c.h1}</h1>
+        <p style={{ margin: '20px 0 0', fontSize: 19, lineHeight: '30px', color: 'var(--text-muted)', maxWidth: 540, textWrap: 'pretty' }}>{c.lead}</p>
+        <div style={{ display: 'flex', gap: 12, marginTop: 32, flexWrap: 'wrap' }}><Button size="lg" iconRight="arrow-right" onClick={onCta}>{c.cta}</Button><Button size="lg" variant="whatsapp">{c.ctaWa}</Button></div>
+        <div style={{ marginTop: 16, fontSize: 14, color: 'var(--text-muted)' }}>{c.note}</div>
+      </div>
+      <div style={{ display: 'flex', justifyContent: 'center', position: 'relative' }}>
+        <div aria-hidden="true" style={{ position: 'absolute', inset: '8% 4% -4% 10%', borderRadius: 40, background: 'var(--teal-50)' }} />
+        <div style={{ position: 'relative', width: '100%', display: 'flex', justifyContent: 'center' }}><ChatPreview c={c} locale={locale} /></div>
+      </div>
+    </section>
+  );
+}
+
+function How({ c }) {
+  return (
+    <section id="s0" style={{ background: 'var(--surface-card)', borderTop: '1px solid var(--border-subtle)', borderBottom: '1px solid var(--border-subtle)' }}>
+      <div style={{ ...W, padding: '88px 32px' }}>
+        <h2 style={{ fontSize: 40, lineHeight: '48px', fontWeight: 700, letterSpacing: '-0.02em' }}>{c.howTitle}</h2>
+        <p style={{ margin: '10px 0 0', fontSize: 18, color: 'var(--text-muted)' }}>{c.howLead}</p>
+        <ol style={{ listStyle: 'none', padding: 0, margin: '48px 0 0', display: 'grid', gridTemplateColumns: 'repeat(3,minmax(0,1fr))', gap: 24 }}>
+          {c.how.map(([ic, t, d], i) => (
+            <li key={t} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}><span style={{ width: 48, height: 48, borderRadius: 14, background: 'var(--teal-50)', color: 'var(--teal-700)', display: 'grid', placeItems: 'center' }}><Icon name={ic} size={24} /></span><span style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 15, color: 'var(--text-subtle)', fontVariantNumeric: 'tabular-nums' }}>0{i + 1}</span></div>
+              <h3 style={{ fontSize: 20, lineHeight: '28px', fontWeight: 700 }}>{t}</h3>
+              <p style={{ margin: 0, fontSize: 16, lineHeight: '26px', color: 'var(--text-muted)', textWrap: 'pretty' }}>{d}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+  );
+}
+
+function ForWhom({ c }) {
+  const [tab, setTab] = React.useState('d');
+  const items = tab === 'd' ? c.dental : c.psych;
+  const icons = tab === 'd' ? ['bell-ring', 'calendar-days', 'shield-check'] : ['heart-handshake', 'repeat', 'lock'];
+  return (
+    <section id="s1" style={{ ...W, padding: '88px 32px' }}>
+      <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 24, flexWrap: 'wrap' }}>
+        <h2 style={{ fontSize: 40, lineHeight: '48px', fontWeight: 700, letterSpacing: '-0.02em', maxWidth: 560 }}>{c.forTitle}</h2>
+        <Tabs variant="segmented" value={tab} onChange={setTab} items={[{ id: 'd', label: c.tabs[0], icon: 'smile' }, { id: 'p', label: c.tabs[1], icon: 'brain' }]} />
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,minmax(0,1fr))', gap: 20, marginTop: 40 }}>
+        {items.map(([t, d], i) => (
+          <Card key={t} variant="elevated" padding="lg">
+            <span style={{ width: 44, height: 44, borderRadius: 12, background: tab === 'd' ? 'var(--teal-50)' : 'var(--ai-surface)', color: tab === 'd' ? 'var(--teal-700)' : 'var(--ai-accent-text)', display: 'grid', placeItems: 'center' }}><Icon name={icons[i]} size={22} /></span>
+            <h3 style={{ marginTop: 20, fontSize: 19, lineHeight: '26px', fontWeight: 700 }}>{t}</h3>
+            <p style={{ margin: '8px 0 0', fontSize: 15.5, lineHeight: '24px', color: 'var(--text-muted)' }}>{d}</p>
+          </Card>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function Pricing({ c, onCta }) {
+  return (
+    <section id="s2" style={{ background: 'var(--surface-card)', borderTop: '1px solid var(--border-subtle)' }}>
+      <div style={{ ...W, padding: '88px 32px' }}>
+        <div style={{ textAlign: 'center' }}><h2 style={{ fontSize: 40, lineHeight: '48px', fontWeight: 700, letterSpacing: '-0.02em' }}>{c.priceTitle}</h2><p style={{ margin: '10px 0 0', fontSize: 18, color: 'var(--text-muted)' }}>{c.priceLead}</p></div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,minmax(0,1fr))', gap: 20, marginTop: 48, alignItems: 'stretch' }}>
+          {c.plans.map(([n, p, per, feats, hi]) => (
+            <div key={n} style={{ display: 'flex', flexDirection: 'column', gap: 20, padding: 28, borderRadius: 'var(--radius-xl)', background: hi ? 'var(--teal-900)' : 'var(--surface-card)', color: hi ? '#fff' : undefined, border: hi ? '1px solid var(--teal-900)' : '1px solid var(--border-default)', boxShadow: hi ? 'var(--shadow-lg)' : 'none' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}><span style={{ fontFamily: 'var(--font-display)', fontSize: 20, fontWeight: 700, color: hi ? '#fff' : 'var(--text-strong)' }}>{n}</span>{hi && <Badge tone="brand" size="sm">{c.popular}</Badge>}</div>
+              <div style={{ display: 'flex', alignItems: 'baseline', gap: 4 }}><span style={{ fontFamily: 'var(--font-display)', fontSize: 40, lineHeight: '44px', fontWeight: 800, letterSpacing: '-0.02em', fontVariantNumeric: 'tabular-nums', color: hi ? '#fff' : 'var(--text-strong)' }}>{p}</span><span style={{ fontSize: 15, color: hi ? 'var(--teal-100)' : 'var(--text-muted)' }}>{per}</span></div>
+              <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 12, flex: 1 }}>{feats.map((f) => <li key={f} style={{ display: 'flex', gap: 10, fontSize: 15, lineHeight: '22px', color: hi ? 'var(--teal-50)' : 'var(--text-body)' }}><Icon name="check" size={18} color={hi ? 'var(--teal-200)' : 'var(--teal-600)'} />{f}</li>)}</ul>
+              <Button fullWidth size="lg" variant={hi ? 'secondary' : n === c.plans[2][0] ? 'ghost' : 'soft'} onClick={onCta} style={n === c.plans[2][0] ? { border: '1px solid var(--border-default)' } : undefined}>{n === c.plans[2][0] ? c.talk : c.choose}</Button>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Faq({ c }) {
+  const [open, setOpen] = React.useState(0);
+  return (
+    <section id="s3" style={{ ...W, padding: '88px 32px', display: 'grid', gridTemplateColumns: 'minmax(0,1fr) minmax(0,1.6fr)', gap: 48 }}>
+      <h2 style={{ fontSize: 40, lineHeight: '48px', fontWeight: 700, letterSpacing: '-0.02em' }}>{c.faqTitle}</h2>
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
+        {c.faq.map(([q, a], i) => (
+          <div key={q} style={{ borderBottom: '1px solid var(--border-default)' }}>
+            <button type="button" aria-expanded={open === i} onClick={() => setOpen(open === i ? -1 : i)} style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 16, padding: '22px 0', border: 0, background: 'transparent', cursor: 'pointer', textAlign: 'left', font: '600 18px/26px var(--font-text)', color: 'var(--text-strong)' }}>
+              <span style={{ flex: 1 }}>{q}</span><Icon name={open === i ? 'minus' : 'plus'} size={20} color="var(--teal-600)" />
+            </button>
+            {open === i && <p style={{ margin: '0 0 22px', fontSize: 16, lineHeight: '26px', color: 'var(--text-muted)', maxWidth: 620 }}>{a}</p>}
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function FinalCta({ c, onCta }) {
+  return (
+    <section style={{ ...W, paddingBottom: 88 }}>
+      <div style={{ borderRadius: 32, background: 'var(--teal-700)', padding: '64px 56px', display: 'flex', alignItems: 'center', gap: 40, flexWrap: 'wrap' }}>
+        <div style={{ flex: 1, minWidth: 320 }}><h2 style={{ color: '#fff', fontSize: 40, lineHeight: '48px', fontWeight: 800, letterSpacing: '-0.02em', textWrap: 'balance' }}>{c.finalTitle}</h2><p style={{ margin: '12px 0 0', fontSize: 18, lineHeight: '28px', color: 'var(--teal-50)' }}>{c.finalLead}</p></div>
+        <div style={{ display: 'flex', gap: 12 }}><Button size="lg" variant="secondary" iconRight="arrow-right" onClick={onCta}>{c.cta}</Button><Button size="lg" variant="whatsapp">{c.ctaWa}</Button></div>
+      </div>
+    </section>
+  );
+}
+
+function Footer({ c }) {
+  const cols = [['Painel', 'Agente IA', 'Preços'], ['Forgeon', 'Contato', 'Carreiras'], ['Privacidade', 'Termos', 'LGPD / RGPD']];
+  return (
+    <footer style={{ borderTop: '1px solid var(--border-subtle)', background: 'var(--surface-card)' }}>
+      <div style={{ ...W, padding: '48px 32px', display: 'grid', gridTemplateColumns: '1.4fr repeat(3, 1fr)', gap: 32 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}><Logo variant="endorsed" size={32} /><span style={{ fontSize: 13.5, color: 'var(--text-muted)' }}>{c.rights}</span></div>
+        {c.footer.map((h, i) => <div key={h} style={{ display: 'flex', flexDirection: 'column', gap: 10 }}><span style={{ fontSize: 12, fontWeight: 600, letterSpacing: '.08em', textTransform: 'uppercase', color: 'var(--text-muted)' }}>{h}</span>{cols[i].map((l) => <a key={l} href="#" style={{ color: 'var(--text-body)', textDecoration: 'none', fontSize: 15 }}>{l}</a>)}</div>)}
+      </div>
+    </footer>
+  );
+}
+
+function DemoDialog({ c, onClose }) {
+  const [sent, setSent] = React.useState(false);
+  if (sent) return <Dialog icon="circle-check" title={c.form.ok} description={c.form.okd} onClose={onClose} actions={<Button onClick={onClose}>OK</Button>} />;
+  return (
+    <Dialog title={c.form.title} description={c.form.desc} icon="calendar-check" onClose={onClose} width={520}
+      actions={<Button size="lg" fullWidth onClick={() => setSent(true)}>{c.form.send}</Button>}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
+        <Input label={c.form.name} /><Input label={c.form.clinic} />
+        <Input label={c.form.phone} iconLeft="whatsapp" placeholder="+55 11 90000-0000" /><Select label={c.form.type} options={c.tabs} />
+      </div>
+    </Dialog>
+  );
+}
+
+Object.assign(window, { SiteNav, Hero, How, ForWhom, Pricing, Faq, FinalCta, Footer, DemoDialog });
+})();
+
+</script>
+<script type="text/babel">
+(() => {
+function Site() {
+  const [locale, setLocale] = React.useState('pt-BR');
+  const [demo, setDemo] = React.useState(false);
+  const c = window.FC_SITE_COPY[locale];
+  React.useEffect(() => { document.documentElement.lang = locale; }, [locale]);
+  const cta = () => setDemo(true);
+  return (
+    <div>
+      <SiteNav c={c} locale={locale} setLocale={setLocale} onCta={cta} />
+      <Hero c={c} locale={locale} onCta={cta} />
+      <How c={c} />
+      <ForWhom c={c} />
+      <Pricing c={c} onCta={cta} />
+      <Faq c={c} />
+      <FinalCta c={c} onCta={cta} />
+      <Footer c={c} />
+      {demo && <DemoDialog c={c} onClose={() => setDemo(false)} />}
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<Site />);
+})();
+</script></body></html>

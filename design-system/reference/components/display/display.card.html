@@ -1,0 +1,21 @@
+<!-- @dsCard group="Components" viewport="700x300" name="Card, Badge, Tag, Avatar" subtitle="Surfaces and small labels" -->
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_runtime/ds-bundle.js"></script>
+<style>body{margin:0;background:var(--surface-card)}.lbl{font:600 11px/14px var(--font-mono);color:var(--text-subtle);text-transform:uppercase;letter-spacing:.04em}</style></head><body><div id="root"></div>
+<script type="text/babel">
+const { Card, Badge, Tag, Avatar, Button } = window.ForgeonClinicDesignSystem_5b731b;
+function Demo(){
+const [f,setF]=React.useState('todas');
+return <div style={{padding:20,display:'grid',gridTemplateColumns:'1.1fr 1fr',gap:20,alignItems:'start',background:'var(--bg-app)',height:300,boxSizing:'border-box'}}>
+<Card title="Próximas consultas" subtitle="Hoje, terça 14 out" actions={<Button size="sm" variant="ghost" iconRight="arrow-right">Agenda</Button>} footer={<span style={{fontSize:13,color:'var(--text-muted)'}}>3 confirmadas pela IA hoje</span>}>
+<div style={{display:'flex',alignItems:'center',gap:12}}><Avatar name="Marina Souza"/><div style={{flex:1}}><div style={{fontWeight:600,color:'var(--text-strong)'}}>Marina Souza</div><div style={{fontSize:13,color:'var(--text-muted)'}}>14:30 · Sessão de terapia</div></div><Badge tone="ai" icon="sparkles" size="sm">IA</Badge></div></Card>
+<div style={{display:'flex',flexDirection:'column',gap:14}}>
+<div style={{display:'flex',gap:6,flexWrap:'wrap'}}><Badge>Neutro</Badge><Badge tone="teal">Novo paciente</Badge><Badge tone="success" dot>Online</Badge><Badge tone="warning">Aviso</Badge><Badge tone="danger">Urgente</Badge><Badge tone="ai" icon="sparkles">Agente IA</Badge><Badge tone="brand">Novo</Badge><Badge tone="whatsapp" icon="whatsapp">WhatsApp</Badge></div>
+<div style={{display:'flex',gap:8,flexWrap:'wrap'}}>{['todas','pendentes','faltas'].map((k,i)=><Tag key={k} selected={f===k} onClick={()=>setF(k)} count={[48,6,2][i]}>{k[0].toUpperCase()+k.slice(1)}</Tag>)}<Tag onRemove={()=>{}}>Ortodontia</Tag></div>
+<div style={{display:'flex',gap:8}}><Avatar name="Dra. Ana Lima" size={32} status="online"/><Avatar name="Javier Ortega" size={32}/><Avatar name="Lucía Martín" size={32}/><Avatar name="Pedro Alves" size={32}/><Avatar name="Carla Mendes" size={32} status="away"/></div></div></div>;
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+</script></body></html>

@@ -1,0 +1,10 @@
+/* Minimal element defaults */
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg-app);color:var(--text-body);font-family:var(--font-text);font-size:var(--text-md-size);line-height:var(--text-md-lh);-webkit-font-smoothing:antialiased;font-feature-settings:"cv11","ss01"}
+h1,h2,h3,h4{font-family:var(--font-display);color:var(--text-strong);margin:0}
+a{color:var(--text-link);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+a:hover{color:var(--text-link-hover)}
+:focus-visible{outline:none;box-shadow:var(--focus-ring);border-radius:var(--radius-xs)}
+::selection{background:var(--teal-100);color:var(--ink-900)}
+.fc-tabular{font-variant-numeric:tabular-nums}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}

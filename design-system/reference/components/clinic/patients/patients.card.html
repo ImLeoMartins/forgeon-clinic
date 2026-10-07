@@ -1,0 +1,15 @@
+<!-- @dsCard group="Components" viewport="700x300" name="PatientTable" subtitle="Patients list" -->
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../../../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../../_runtime/ds-bundle.js"></script>
+<style>body{margin:0;background:var(--surface-card)}.lbl{font:600 11px/14px var(--font-mono);color:var(--text-subtle);text-transform:uppercase;letter-spacing:.04em}</style></head><body><div id="root"></div>
+<script type="text/babel">
+const { PatientTable } = window.ForgeonClinicDesignSystem_5b731b;
+function Demo(){
+const rows=[{id:'1',name:'Marina Souza',phone:'+55 11 98765-4321',professional:'Dra. Ana Lima',lastVisit:'02/10/2026',next:'14/10 · 14:30',status:'confirmed'},{id:'2',name:'Javier Ortega',phone:'+34 612 345 678',professional:'Dr. Pablo Ruiz',lastVisit:'28/09/2026',next:'15/10 · 16:00',status:'pending'},{id:'3',name:'Pedro Alves',phone:'+55 21 99876-1234',professional:'Dra. Ana Lima',lastVisit:'30/09/2026',status:'noshow',channel:'phone'},{id:'4',name:'Lúcia Prado',phone:'+55 11 91234-5678',professional:'Dr. Paulo Reis',lastVisit:'06/10/2026',next:'20/10 · 08:00',status:'rescheduled'}];
+const [s,setS]=React.useState('1');return <div style={{padding:16,background:'var(--bg-app)'}}><PatientTable rows={rows} selectedId={s} onRowClick={r=>setS(r.id)}/></div>;
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+</script></body></html>

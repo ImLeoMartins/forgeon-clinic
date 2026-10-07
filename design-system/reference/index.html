@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Forgeon Clinic — referências visuais</title>
+<link rel="stylesheet" href="../styles.css">
+<style>body{padding:var(--space-10) var(--space-6);max-width:var(--content-max);margin:0 auto}h1{font-size:var(--text-h2-size);line-height:var(--text-h2-lh)}h2{font-size:var(--text-h4-size);margin-top:var(--space-8)}p{color:var(--text-muted)}ul{list-style:none;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(16rem,1fr));gap:var(--space-3)}li a{display:block;padding:var(--space-4);background:var(--surface-card);border:var(--border-w) solid var(--border-subtle);border-radius:var(--radius-lg);text-decoration:none;color:var(--text-strong);font-weight:600;box-shadow:var(--shadow-xs)}li a span{display:block;font-weight:400;font-size:var(--text-sm-size);color:var(--text-muted);margin-top:var(--space-1)}code{font-family:var(--font-mono);font-size:var(--text-sm-size)}</style></head><body>
+<h1>Forgeon Clinic — referências visuais</h1>
+<p>HTMLs originais do export do Claude Design, preservados como referência. Rodam direto do disco (precisam de internet para React/Babel do unpkg). A biblioteca viva está em <code>design-system/components</code> e na rota <code>/design-system</code> do app. E-mails: <a href="../templates/email/confirmacao-pt-BR.html">confirmação pt-BR</a> · <a href="../templates/email/recordatorio-es-ES.html">recordatorio es-ES</a>.</p>
+<h2>Fundações — cores, tipo, espaçamento</h2>
+<ul>
+<li><a href="guidelines/colors-brand.html">Forgeon brand accent<span>Indigo → violet. Logo, AI/agent moments, badges only</span></a></li>
+<li><a href="guidelines/colors-chat.html">Chat & WhatsApp<span>Bubble surfaces; WhatsApp green only on WhatsApp elements</span></a></li>
+<li><a href="guidelines/colors-dark.html">Dark mode (painel)<span>data-theme=&quot;dark&quot; — semantic aliases remap</span></a></li>
+<li><a href="guidelines/colors-ink.html">Ink (text)<span>Cool navy text scale on warm grounds</span></a></li>
+<li><a href="guidelines/colors-sand.html">Warm neutrals<span>Sand grounds, surfaces and borders</span></a></li>
+<li><a href="guidelines/colors-semantic.html">Semantic<span>Base / text / surface triplets</span></a></li>
+<li><a href="guidelines/colors-status.html">Appointment status<span>Confirmada · pendente · cancelada · faltou · remarcada</span></a></li>
+<li><a href="guidelines/colors-teal.html">Clinic Teal<span>Primary — actions, links, active states</span></a></li>
+<li><a href="guidelines/spacing-focus.html">Focus & touch targets<span>Always-visible focus ring; 44px minimum, 48px for patient UI</span></a></li>
+<li><a href="guidelines/spacing-motion.html">Motion<span>Short, quiet fades and slides; zero under prefers-reduced-motion</span></a></li>
+<li><a href="guidelines/spacing-radii.html">Corner radii<span>12–16px for cards and controls; pill for badges</span></a></li>
+<li><a href="guidelines/spacing-scale.html">Spacing scale<span>4px base; generous breathing room</span></a></li>
+<li><a href="guidelines/spacing-shadows.html">Elevation<span>Soft, low-contrast, navy-tinted shadows</span></a></li>
+<li><a href="guidelines/type-body.html">Text — Inter<span>UI and reading text; 16px minimum for patient-facing copy</span></a></li>
+<li><a href="guidelines/type-display.html">Display — Manrope<span>Headings, KPIs, marketing</span></a></li>
+<li><a href="guidelines/type-mono.html">Mono — template variables<span>JetBrains Mono, only for {{variáveis}} in message templates</span></a></li>
+<li><a href="guidelines/type-scale.html">Type scale<span>Display → overline</span></a></li>
+<li><a href="guidelines/type-tabular.html">Tabular numerals<span>font-variant-numeric: tabular-nums for times, dates, KPIs</span></a></li>
+</ul>
+<h2>Componentes</h2>
+<ul>
+<li><a href="components/actions/actions.card.html">Buttons<span>Button variants, sizes, states + IconButton</span></a></li>
+<li><a href="components/brand/brand.card.html">Logo<span>F symbol + Clinic lockups, tones</span></a></li>
+<li><a href="components/chat/chat.card.html">Chat<span>ChatBubble (patient · agent · human · system) + ConversationItem</span></a></li>
+<li><a href="components/clinic/appointment/appointment.card.html">AppointmentCard + TimeSlots<span>Appointment summary and slot picker</span></a></li>
+<li><a href="components/clinic/calendar/calendar.card.html">WeekCalendar<span>Weekly agenda per professional</span></a></li>
+<li><a href="components/clinic/handoff/handoff.card.html">HandoffAlert<span>Agent → human handoff, normal and urgent</span></a></li>
+<li><a href="components/clinic/metrics/metrics.card.html">KpiCard<span>Dashboard metrics</span></a></li>
+<li><a href="components/clinic/patients/patients.card.html">PatientTable<span>Patients list</span></a></li>
+<li><a href="components/clinic/status/status.card.html">StatusBadge<span>Appointment status — pt-BR and es-ES</span></a></li>
+<li><a href="components/display/display.card.html">Card, Badge, Tag, Avatar<span>Surfaces and small labels</span></a></li>
+<li><a href="components/forms/forms.card.html">Form controls<span>Input, Select, Textarea, Checkbox, Radio, Switch</span></a></li>
+<li><a href="components/icons/icons.card.html">Icons<span>Lucide rounded-stroke set + WhatsApp glyph</span></a></li>
+<li><a href="components/navigation/navigation.card.html">Tabs<span>Underline + segmented</span></a></li>
+<li><a href="components/overlays/overlays.card.html">Dialog, Toast, Tooltip<span>Overlays</span></a></li>
+</ul>
+<h2>UI kits</h2>
+<ul>
+<li><a href="ui_kits/painel/index.html">Painel da clínica<span>Clickable panel — início, agenda, conversas, pacientes, mensagens</span></a></li>
+<li><a href="ui_kits/site/index.html">Landing de vendas<span>Hero, como funciona, especialidades, preços, FAQ — PT/ES</span></a></li>
+</ul>
+<h2>Capa</h2>
+<ul>
+<li><a href="thumbnail.html">thumbnail.html<span>thumbnail.html</span></a></li>
+</ul>
+</body></html>
