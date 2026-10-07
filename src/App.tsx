@@ -1,11 +1,13 @@
 import type { ReactElement } from 'react';
 import { Home } from './pages/Home';
 import { DesignSystemShowcase } from './pages/DesignSystemShowcase';
+import { UsageAuditor } from './pages/UsageAuditor';
 
-// Minimal path switch — the app has two routes today. Swap for a real router when the panel gets real screens.
+// Minimal path switch. Swap for a real router when the panel gets real screens.
 const ROUTES: Record<string, () => ReactElement> = {
   '/': Home,
   '/design-system': DesignSystemShowcase,
+  '/forgeon/auditor': UsageAuditor,
 };
 
 export function App() {

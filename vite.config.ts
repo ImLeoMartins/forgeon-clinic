@@ -5,6 +5,12 @@ import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+  // Em desenvolvimento, o painel fala com a API local (npm run dev:server).
+  server: {
+    proxy: {
+      '/admin': 'http://localhost:3000',
+    },
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),

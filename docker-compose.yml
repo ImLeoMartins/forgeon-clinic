@@ -1,0 +1,20 @@
+# Banco local de desenvolvimento. Só dados fictícios; a senha abaixo vale apenas nesta máquina.
+services:
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: forgeon
+      POSTGRES_PASSWORD: forgeon_dev
+      POSTGRES_DB: forgeon_clinic
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U forgeon -d forgeon_clinic"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  db-data:

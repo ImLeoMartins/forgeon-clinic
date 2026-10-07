@@ -3,11 +3,18 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "workspaces": [
+    "server"
+  ],
   "scripts": {
     "dev": "vite",
-    "build": "tsc --noEmit && vite build",
+    "dev:server": "npm run dev -w server",
+    "build": "npm run typecheck && vite build",
     "preview": "vite preview",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsc --noEmit && npm run typecheck -w server",
+    "test": "npm test -w server",
+    "db:up": "docker compose up -d db",
+    "db:down": "docker compose down",
     "lint": "oxlint --deny-warnings && npm run lint:design",
     "lint:design": "design.md lint DESIGN.md && node scripts/check-tokens.mjs"
   },

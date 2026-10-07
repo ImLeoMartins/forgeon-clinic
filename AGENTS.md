@@ -4,7 +4,14 @@ Instruções para agentes de código (Claude Code, Codex, Cursor, Copilot, Gemin
 
 ## Projeto
 
-Forgeon Clinic: SaaS da Forgeon com um agente de IA no WhatsApp para clínicas odontológicas e de psicologia no Brasil e na Espanha (agenda, lembretes, triagem, passagem para a recepção). Toda a UI sai em **pt-BR** e **es-ES**. Estado atual: base do front-end e design system; ainda não há telas de produto nem back-end.
+Forgeon Clinic: SaaS da Forgeon com um agente de IA no WhatsApp para clínicas odontológicas e de psicologia no Brasil e na Espanha (agenda, lembretes, triagem, passagem para a recepção). Toda a UI sai em **pt-BR** e **es-ES**. Estado atual: base do front-end e design system; back-end em `server/` com a base e o webhook do WhatsApp (etapas 1 e 2 de [`docs/arquitetura-backend.md`](docs/arquitetura-backend.md)); ainda não há telas de produto.
+
+## Back-end (`server/`)
+
+- Workspace npm. Node 24 roda o TypeScript direto (sem build): imports relativos com extensão `.ts` e só sintaxe apagável (sem `enum`, sem `namespace`).
+- Fastify 5, PostgreSQL 17 (Docker local em `docker-compose.yml`), Drizzle ORM (schema em `server/src/db/schema.ts`, migrações em `server/drizzle/`), Zod, Vitest.
+- O plano e as decisões de arquitetura estão em `docs/arquitetura-backend.md`. Siga a ordem de construção de lá.
+- Segredos só em `server/.env` (ignorado pelo git; modelo em `server/.env.example`). Conteúdo de mensagem de paciente é gravado cifrado (`server/src/lib/crypto.ts`) e nunca vai para log.
 
 ## Stack
 
@@ -22,9 +29,13 @@ npm run dev         # http://localhost:5173 — showcase em /design-system
 npm run typecheck   # tsc --noEmit
 npm run lint        # oxlint --deny-warnings + DESIGN.md lint + checagem de tokens
 npm run build       # typecheck + vite build
+npm run db:up       # Postgres local (Docker)
+npm run db:migrate -w server   # aplica as migrações
+npm run dev:server  # API em http://localhost:3000
+npm test            # testes do back-end (Vitest)
 ```
 
-Antes de entregar qualquer mudança: `npm run typecheck && npm run lint && npm run build` precisam passar.
+Antes de entregar qualquer mudança: `npm run typecheck && npm run lint && npm run build && npm test` precisam passar.
 
 ## Design system — regras obrigatórias
 
